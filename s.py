@@ -1,25 +1,10 @@
 import socket
-def externo():
-    ipex = input("Insira O Ip Externo:")
-    return ipex
-opiniao = input("Colocar O Ip Externo? 's' ou 'n': ")
-HOST = socket.gethostbyname(socket.gethostname())              
-if opiniao == 's':
-    ipext = externo()
-    HOST = ipext
-PORT = 5000            
-print(f"Host: {HOST} Porta: {PORT}")
-tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-orig = (HOST, PORT)
-tcp.bind(orig)
-tcp.listen(1)
-
-con, cliente = tcp.accept()
-print(f'Concetado por {cliente}')
+server = socket.socket() 
+ip = input("Insert ip here: ")
+server.bind((ip, 10020)) 
+server.listen(4) 
+client_socket, client_address = server.accept()
+print(client_address, "has connected")
 while True:
-    msg = con.recv(1024)
-    msgd = msg.decode()
-    if not msg: break
-    print(f"{cliente}  : {msgd} ")
-print(f'Finalizando conexao do cliente {cliente}')
-con.close()
+    recvieved_data = client_socket.recv(1024)
+    print(recvieved_data)
