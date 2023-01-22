@@ -7,3 +7,6 @@ print(client_address, "has connected")
 while True:
     recvieved_data = client_socket.recv(1024)
     print(recvieved_data)
+    dataenv = input("msg:")
+    client_socket.send(dataenv)
+
